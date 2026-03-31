@@ -1,0 +1,19 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: TerraformInstaller@1
+  inputs:
+    terraformVersion: 'latest'
+
+- script: terraform --version
+  displayName: 'Check Terraform version'
+
+- script: |
+    terraform init
+    terraform fmt -check
+    terraform validate
+  displayName: 'Terraform init, fmt, and validate'
